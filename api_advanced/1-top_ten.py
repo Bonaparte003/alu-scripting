@@ -1,18 +1,28 @@
 #!/usr/bin/python3
-"""function that fetches from reddit"""
+"""
+the 10 hotest
+"""
 import requests
 
 
 def top_ten(subreddit):
-    """function that fetches top 10 hottest posts"""
-    headers = {'User-Agent': 'MyAPI/0.1.1'}
-    url = "https://www.reddit.com/r/{}.json?limit=10".format(subreddit)
-    fetched_data = requests.get(url, headers=headers, allow_redirects=False)
-    status = fetched_data.status_code
-    if status == 200:
-        results = fetched_data.json()
-        data = results['data']['children']
-        for i in range(10):
-            print(data[i]['data']['title'])
-    else:
+    """
+    making the function
+    """
+    if subreddit is None or type(subreddit) is not str:
         print(None)
+    headers = {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)\
+            AppleWebKit/537.36 (KHTML, like Gecko)\
+            Chrome/102.0.0.0 Safari/537.36'
+            }
+    r = requests.get(
+            f"https://www.reddit.com/r/{subreddit}/hot.json?limit=10",
+            allow_redirects=False,
+            headers=headers
+            )
+    if r.status_code != 200:
+        print(None)
+        return
+    for child in r.json()["data"]["children"][1:10]:
+        print(child["data"]["title"])
