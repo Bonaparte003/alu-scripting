@@ -1,10 +1,13 @@
 #!/usr/bin/python3
-"""function that fetches from reddit"""
+"""
+function that fetches from reddit
+"""
 import requests
 
 
 def recurse(subreddit, hot_list=[], after=None):
-    """function that fetches all hot articles recursively"""
+    """function that fetches all hot articles recursively
+    """
     headers = {'User-Agent': 'MyAPI/0.1.1'}
     url = f"https://www.reddit.com/r/{subreddit}/hot.json"
     params = {'limit': 100, 'after': after}
