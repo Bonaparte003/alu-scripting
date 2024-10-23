@@ -1,13 +1,15 @@
 #!/usr/bin/python3
 """
-Function that fetches data from Reddit API
+function that fetches data from a
+reddit API.
+
+
 """
 import requests
 
 
 def number_of_subscribers(subreddit):
     """function that fetches data"""
-
     headers = {'User-Agent': 'MyAPI/0.1'}
     url = f"https://www.reddit.com/r/{subreddit}/about.json"
     fetched_data = requests.get(url, headers=headers, allow_redirects=False)
