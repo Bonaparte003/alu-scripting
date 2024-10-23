@@ -7,14 +7,9 @@ def top_ten(subreddit):
     """"function that fetches data """
     if subreddit is None or type(subreddit) is not str:
         print(None)
-    headers = {
-            'User-Agent': 'MyAPI/0.1'
-            }
-    r = requests.get(
-            f"https://www.reddit.com/r/{subreddit}/hot.json?limit=9",
-            allow_redirects=False,
-            headers=headers
-            )
+    headers = {'User-Agent': 'MyAPI/0.1'}
+    url = "https://www.reddit.com/r/{}/hot.json?limit=9".format(subreddit)
+    r = requests.get(url, allow_redirects=False, headers=headers)
     if r.status_code != 200:
         print(None)
         return
