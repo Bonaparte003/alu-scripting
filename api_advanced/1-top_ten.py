@@ -12,7 +12,7 @@ def top_ten(subreddit):
     if status == 200:
         results = fetched_data.json()
         data = results['data']['children']
-        for i in data:
-            print(i['data']['title'])
+        for i in range(9):
+            print(data[i]['data']['title'])
     else:
         print(None)
