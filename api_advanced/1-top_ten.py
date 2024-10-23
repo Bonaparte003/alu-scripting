@@ -1,26 +1,18 @@
 #!/usr/bin/python3
-"""Function that fetches top 10 hot posts from a subreddit."""
+"""function that fetches from reddit"""
 import requests
 
 
 def top_ten(subreddit):
-    """Fetch and print the titles of the first 10 hot posts for a given subreddit.
-    
-    Args:
-        subreddit (str): The name of the subreddit to query.
-
-    Returns:
-        None
-    """
-    headers = {'User-Agent': 'MyAPI/0.1'}
-    url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=10"
+    """function that fetches top 10 hottest posts"""
+    headers = {'User-Agent': 'MyAPI/0.1.1'}
+    url = "https://www.reddit.com/r/{}.json?limit=9".format(subreddit)
     fetched_data = requests.get(url, headers=headers, allow_redirects=False)
-    
-    if fetched_data.status_code == 200:
+    status = fetched_data.status_code
+    if status == 200:
         results = fetched_data.json()
         data = results['data']['children']
-        
-        for i in range(min(9, len(data))):
+        for i in range(9):
             print(data[i]['data']['title'])
     else:
         print(None)
