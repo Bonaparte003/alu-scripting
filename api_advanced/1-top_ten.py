@@ -20,6 +20,10 @@ def top_ten(subreddit):
     else:
         try:
             results = response.json().get("data")
-            [print(c.get("data").get("title")) for c in results.get("children")]
+            children = results.get("children")
+            for child in children:
+                data = child.get("data")
+                title = data.get("title")
+                print(title)
         except ValueError:
             print("None")
