@@ -1,34 +1,26 @@
-#!/usr/bin/python3
-"""
-function that fetches from reddit
-"""
 import requests
 
 
 def recurse(subreddit, hot_list=[], after=None):
-    """function that fetches all hot articles recursively
-    """
-    headers = {'User-Agent': 'MyAPI/0.1.1'}
+    """Set up the URL to make a request to Reddit's hot posts API"""
     url = f"https://www.reddit.com/r/{subreddit}/hot.json"
-    params = {'limit': 100, 'after': after}
-
-    fetched_data = requests.get(
-        url,
-        headers=headers,
-        params=params,
-        allow_redirects=False)
-    status = fetched_data.status_code
-
-    if status == 200:
-        results = fetched_data.json()
-        data = results['data']['children']
-        for item in data:
-            hot_list.append(item['data']['title'])
-
-        after = results['data']['after']
-        if after:
-            return recurse(subreddit, hot_list, after)
-        else:
+    headers = {'User-Agent': 'Mozilla/5.0'}
+    
+    parameter = {'limit': 100, 'after': after}
+    
+    try:
+        response = requests.get(url, headers=headers, params=parameter, allow_redirects=False)
+        if response.status_code != 200:
+            return None
+        data = response.json().get('data')
+        
+        hot_list += [child['data']['title'] for child in data['children']]
+        
+        after = data.get('after')
+        if after is None:
             return hot_list
-    else:
+        else:
+            return recurse(subreddit, hot_list, after)
+    
+    except Exception as e:
         return None
