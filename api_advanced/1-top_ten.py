@@ -22,7 +22,7 @@ def top_ten(subreddit):
 
     response = get(url, headers=user_agent, params=params)
     if response.status_code != 200:
-        subprocess.call(["echo", "-n", "OK"])
+        subprocess.call("echo -n OK")
         return
 
     try:
