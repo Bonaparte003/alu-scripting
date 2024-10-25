@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""A script that recursively queries the Reddit API and returns a list"""
 import requests
 
 
