@@ -20,9 +20,12 @@ def top_ten(subreddit):
     url = 'https://www.reddit.com/r/{}/hot/.json'.format(subreddit)
 
     response = get(url, headers=user_agent, params=params)
-    results = response.json()
+    if response.status_code != 200:
+        print("None")
+        return
 
     try:
+        results = response.json()
         my_data = results.get('data').get('children')
 
         for i in my_data:
