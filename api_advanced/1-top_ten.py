@@ -1,20 +1,24 @@
 #!/usr/bin/python3
-"""function that fetches from reddit"""
+"""Script that fetch 10 hot post for a given subreddit."""
 import requests
 
 
 def top_ten(subreddit):
-    """function that fetches top 10 hottest posts"""
-    headers = {'User-Agent': 'MyAPI/0.1.1'}
-    url = f"https://www.reddit.com/r/{subreddit}/hot.json?limit=10"
+    """Return number of subscribers if @subreddit is valid subreddit.
+    if not return 0."""
 
-    fetched_data = requests.get(url, headers=headers, allow_redirects=False)
-    status = fetched_data.status_code
+    headers = {'User-Agent': 'MyAPI/0.0.1'}
+    subreddit_url = "https://reddit.com/r/{}.json".format(subreddit)
+    response = requests.get(subreddit_url, headers=headers)
 
-    if status == 200:
-        results = fetched_data.json()
-        data = results['data']['children']
+    if response.status_code == 200:
+        json_data = response.json()
         for i in range(10):
-            print(data[i]['data']['title'])
+            print(
+                json_data.get('data')
+                .get('children')[i]
+                .get('data')
+                .get('title')
+            )
     else:
         print(None)
