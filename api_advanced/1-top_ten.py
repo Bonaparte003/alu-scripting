@@ -22,7 +22,7 @@ def top_ten(subreddit):
     response = get(url, headers=user_agent, params=params)
     if response.status_code != 200:
         Ok = "OK"
-        print(Ok, end="\b\b")
+        print(Ok, end="")
         return
 
     try:
