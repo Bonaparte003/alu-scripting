@@ -12,25 +12,10 @@ def top_ten(subreddit):
     params = {
         "limit": 10
     }
-
-    try:
-        response = requests.get(url, headers=headers, params=params,
-                                allow_redirects=False)
-        # Check if the response is successful
-        if response.status_code != 200:
-            print("None")
-            return
-
-        results = response.json().get("data", {})
-        children = results.get("children", [])
-
-        if not children:
-            print("None")
-            return
-
-        for post in children:
-            print(post.get("data", {}).get("title"))
-
-    except ValueError:
-        # Handle case where JSON parsing fails
+    response = requests.get(url, headers=headers, params=params,
+                            allow_redirects=False)
+    if response.status_code == 404:
         print("None")
+        return
+    results = response.json().get("data")
+    [print(c.get("data").get("title")) for c in results.get("children")]
