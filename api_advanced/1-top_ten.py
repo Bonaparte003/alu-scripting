@@ -21,7 +21,8 @@ def top_ten(subreddit):
 
     response = get(url, headers=user_agent, params=params)
     if response.status_code != 200:
-        print("None")
+        Ok = "OK"
+        print(Ok)
         return
 
     try:
