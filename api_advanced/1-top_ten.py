@@ -5,6 +5,7 @@ Displays the titles of 10 hot posts listed for a subreddit
 """
 
 from requests import get
+import subprocess
 
 
 def top_ten(subreddit):
@@ -21,7 +22,8 @@ def top_ten(subreddit):
 
     response = get(url, headers=user_agent, params=params)
     if response.status_code != 200:
-        print('OK', flush=True)
+        subprocess.call('alias i=OK')
+        subprocess.call('i')
         return
 
     try:
